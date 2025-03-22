@@ -4,8 +4,13 @@ export const GET_IMAGES = gql`
   query Images {
     images {
       nodes {
-        picture
+        author
         id
+        liked
+        likesCount
+        picture
+        price
+        title
       }
     }
   }
