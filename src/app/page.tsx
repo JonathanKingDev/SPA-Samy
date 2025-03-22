@@ -1,7 +1,5 @@
+import { ImagesContainer } from "@/pods/images";
+
 export default function Homepage() {
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  );
+  return <ImagesContainer />;
 }
