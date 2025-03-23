@@ -1,61 +1,33 @@
 import React from "react";
-import Image from "next/image";
 import { Picture } from "./images.vm";
-import { IoMdSend } from "react-icons/io";
-import { CiHeart } from "react-icons/ci";
+import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./images.module.scss";
+import { Card } from "./components/card.component";
 
 interface Props {
   images: Picture[];
-  loading: boolean;
+  hasMore: boolean;
+  fetchImages: () => void;
+  onLike: (imageId: string) => void;
 }
 
-export const Images = ({ images, loading }: Props) => {
+export const Images = ({ images, hasMore, fetchImages, onLike }: Props) => {
   return (
     <main>
       <h1 className={styles["head-title"]}>Image gallery</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
+      <InfiniteScroll
+        dataLength={images.length}
+        next={fetchImages}
+        hasMore={hasMore}
+        loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
+        scrollThreshold={0.9} // carga antes de llegar al fondo
+      >
         <ul className={styles["images-list"]}>
           {images.map((image) => (
-            <li key={image.id}>
-              <article className={styles.card}>
-                <div className={styles.price}>{image.price} €</div>
-
-                <Image
-                  src={image.picture}
-                  alt={`${image.title} by ${image.author}`}
-                  width={300}
-                  height={300}
-                  priority={false}
-                  className={styles.image}
-                />
-
-                <div className={styles["info-container"]}>
-                  <h2 className={styles["card-title"]} title={image.title}>
-                    {image.title}
-                  </h2>
-                  <p className={styles.author}>
-                    <span>by</span> {image.author}
-                  </p>
-                </div>
-
-                <div className={styles["image-buttons"]}>
-                  <button className={styles.button}>
-                    <CiHeart size={25} color="red" />
-                    <span>{image.likesCount}</span>
-                  </button>
-                  <button className={styles.button}>
-                    <IoMdSend className={styles["send-icon"]} size={20} />
-                    <span>0</span>
-                  </button>
-                </div>
-              </article>
-            </li>
+            <Card key={image.id} image={image} onLike={onLike} />
           ))}
         </ul>
-      )}
+      </InfiniteScroll>
     </main>
   );
 };

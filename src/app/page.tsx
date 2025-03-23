@@ -1,5 +1,5 @@
-import { ImagesContainer } from "@/pods/images";
+import { redirect } from "next/navigation";
 
 export default function Homepage() {
-  return <ImagesContainer />;
+  redirect("/images");
 }
