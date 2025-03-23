@@ -13,14 +13,14 @@ interface Props {
 
 export const Images = ({ images, hasMore, fetchImages, onLike }: Props) => {
   return (
-    <main>
+    <main className={styles.main}>
       <h1 className={styles["head-title"]}>Image gallery</h1>
       <InfiniteScroll
         dataLength={images.length}
         next={fetchImages}
         hasMore={hasMore}
         loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
-        scrollThreshold={0.9} // carga antes de llegar al fondo
+        scrollThreshold={0.9}
       >
         <ul className={styles["images-list"]}>
           {images.map((image) => (

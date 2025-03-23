@@ -35,6 +35,7 @@ export const Card = ({ image, onLike }: Props) => {
         <CardActions
           likesCount={image.likesCount}
           imageId={image.id}
+          liked={image.liked}
           onLike={onLike}
         />
       </article>

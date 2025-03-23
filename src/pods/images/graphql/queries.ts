@@ -6,6 +6,7 @@ export const GET_IMAGES = gql`
       nodes {
         id
         author
+        liked
         likesCount
         picture
         price

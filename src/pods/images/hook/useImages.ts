@@ -14,7 +14,7 @@ export function useImages() {
 
     const data = await client.request<GetPicturesResponse>(GET_IMAGES, {
       after: cursor,
-      first: 10,
+      first: 12,
     });
 
     setImages((prev) => [...prev, ...data.images.nodes]);
