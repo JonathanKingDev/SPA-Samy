@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🖼️ Samy - Prueba Frontend
 
-## Getting Started
+---
 
-First, run the development server:
+## 🛠️ Tecnologías utilizadas
+
+- **Next.js 15**
+- **TypeScript**
+- **Sass (SCSS modules)**
+- **Vitest** – Para los tests
+- **graphql-request** – Para interactuar con la API GraphQL de forma sencilla.
+- **React Icons** e **Infinite Scroll Component**
+
+---
+
+## 📁 Estructura del proyecto
+
+### Arquitectura basada en Pods
+
+He optado por una arquitectura de Pods para organizar el código. ¿Qué significa esto? Que cada funcionalidad (o feature) vive en su propia carpeta y se autogestiona. Un Pod contiene solo lo necesario para esa parte del proyecto, evitando acoplamientos innecesarios y mejorando la escalabilidad.
+
+Cada Pod puede tener su propio:
+• Componente principal (.component.tsx)
+• Contenedor (.container.tsx)
+• ViewModel (.vm.ts)
+• Hooks personalizados (hook/useX.ts)
+• Carpeta donde se definen las llamadas a la base de datos (Api/Graphql)
+• Estilos (.module.scss)
+• Tests (.test.tsx)
+
+Esto permite trabajar cada parte del proyecto como si fuera un mini-módulo autosuficiente.
+
+---
+
+## 🔄 Control de versiones por fases
+
+He dividido el desarrollo en fases, cada una con su rama correspondiente.
+
+Las fases fueron:
+
+1. **setup-next**
+2. **api-connection**
+3. **display-images**
+4. **search-filter**
+5. **testing**
+6. **readme**
+
+---
+
+## 🧩 ¿Cómo está dividido este proyecto?
+
+**/pods/images/**
+Este es el Pod principal, y contiene todo lo relacionado con la galería de imágenes:
+• images.component.tsx: renderizado principal con scroll infinito.
+• images.container.tsx: maneja la lógica de búsqueda y llamadas a la API mediante el custom hook.
+• card.component.tsx: tarjeta visual de cada imagen.
+• card-actions.component.tsx: botones de like y enviar.
+• images.vm.ts: ViewModel para tipar las imágenes y mantener datos adaptados.
+• images.module.scss: estilos de la galería y tarjetas.
+• images-container.test.tsx: tests de renderizado condicional (<Images /> y <NotFound />).
+
+**/pods/search-bar/**
+Contiene la barra de búsqueda:
+• search-bar.component.tsx: input de búsqueda con debounce.
+• search-bar.module.scss: estilos específicos.
+
+**/common/**
+Componentes reutilizables y compartidos:
+• not-found/not-found.component.tsx: mostrado si no hay imágenes que coincidan con la búsqueda.
+• loading/loading.component.tsx: spinner con animación SVG y estilos propios.
+
+**/core/**
+Componentes core para toda la aplicacion:
+• ui/header: componente del header incluido en el layout /image.
+• graphql-client.ts: cliente de la base de datos.
+
+**/app/**
+• page.tsx: punto de entrada de la galería.
+• layout.tsx: layout global de Next.js con fuente, metadatos, etc.
+• globals.scss: variables y estilos globales
+
+---
+
+## 🧪 Pruebas
+
+Los tests están hechos con **Vitest**. Para ejecutarlos:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run test
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
