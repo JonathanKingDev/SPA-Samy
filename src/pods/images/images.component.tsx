@@ -19,20 +19,22 @@ export const Images = ({ images, hasMore, fetchImages, onLike }: Props) => {
         <Loading />
       ) : (
         <main className={styles.main}>
-          <h1 className={styles["head-title"]}>Image gallery</h1>
-          <InfiniteScroll
-            dataLength={images.length}
-            next={fetchImages}
-            hasMore={hasMore}
-            loader={<></>}
-            scrollThreshold={0.9}
-          >
-            <ul className={styles["images-list"]}>
-              {images.map((image) => (
-                <Card key={image.id} image={image} onLike={onLike} />
-              ))}
-            </ul>
-          </InfiniteScroll>
+          <section aria-label="Image gallery results">
+            <h1 className={styles["head-title"]}>Image gallery</h1>
+            <InfiniteScroll
+              dataLength={images.length}
+              next={fetchImages}
+              hasMore={hasMore}
+              loader={<></>}
+              scrollThreshold={0.9}
+            >
+              <ul className={styles["images-list"]}>
+                {images.map((image) => (
+                  <Card key={image.id} image={image} onLike={onLike} />
+                ))}
+              </ul>
+            </InfiniteScroll>
+          </section>
         </main>
       )}
     </>

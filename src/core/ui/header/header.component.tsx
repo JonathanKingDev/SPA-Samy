@@ -30,7 +30,8 @@ export const Header = () => {
         />
         <Image
           src="/spinner.svg"
-          alt="Spinner"
+          alt=""
+          aria-hidden="true"
           width={45}
           height={45}
           className={`${styles.spinnerLogo} ${
