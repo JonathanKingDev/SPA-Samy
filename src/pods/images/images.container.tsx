@@ -4,7 +4,18 @@ import { useImages } from "./hook/useImages";
 import { Images } from "./images.component";
 
 export const ImagesContainer = () => {
-  const { images, loading } = useImages();
+  const { images, fetchImages, hasMore, likeImage } = useImages();
 
-  return <Images images={images} loading={loading} />;
+  const handleLike = (imageId: string) => {
+    likeImage(imageId);
+  };
+
+  return (
+    <Images
+      images={images}
+      hasMore={hasMore}
+      fetchImages={fetchImages}
+      onLike={handleLike}
+    />
+  );
 };

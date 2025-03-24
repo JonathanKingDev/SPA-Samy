@@ -1,32 +1,35 @@
 import React from "react";
-import Image from "next/image";
 import { Picture } from "./images.vm";
+import InfiniteScroll from "react-infinite-scroll-component";
+import styles from "./images.module.scss";
+import { Card } from "./components/card.component";
 
 interface Props {
   images: Picture[];
-  loading: boolean;
+  hasMore: boolean;
+  fetchImages: () => void;
+  onLike: (imageId: string) => void;
 }
 
-export const Images = ({ images, loading }: Props) => {
+export const Images = ({ images, hasMore, fetchImages, onLike }: Props) => {
   return (
-    <main>
-      <h1>Images</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {images.map((image) => (
-            <Image
-              key={image.id}
-              src={image.picture}
-              alt="images"
-              width={400}
-              height={400}
-              priority={false}
-            />
-          ))}
-        </ul>
-      )}
-    </main>
+    <>
+      <main className={styles.main}>
+        <h1 className={styles["head-title"]}>Image gallery</h1>
+        <InfiniteScroll
+          dataLength={images.length}
+          next={fetchImages}
+          hasMore={hasMore}
+          loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
+          scrollThreshold={0.9}
+        >
+          <ul className={styles["images-list"]}>
+            {images.map((image) => (
+              <Card key={image.id} image={image} onLike={onLike} />
+            ))}
+          </ul>
+        </InfiniteScroll>
+      </main>
+    </>
   );
 };
