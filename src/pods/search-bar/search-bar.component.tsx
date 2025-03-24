@@ -27,11 +27,12 @@ export const SearchBar = ({ placeholder }: Props) => {
   }, WAIT_BETWEEN_CHANGE);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} role="search">
       <CiSearch className={styles.icon} />
       <input
         onChange={(event) => handleSearch(event.target.value)}
         className={styles.input}
+        aria-label="Search"
         type="text"
         placeholder={placeholder}
         defaultValue={searchParams.get("query")?.toString()}

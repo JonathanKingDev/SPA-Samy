@@ -1,8 +1,8 @@
+import React from "react";
 import { Picture } from "../images.vm";
-
 import Image from "next/image";
-import styles from "../images.module.scss";
 import { CardActions } from "./card-actions.component";
+import styles from "../images.module.scss";
 
 interface Props {
   image: Picture;
@@ -12,7 +12,11 @@ interface Props {
 export const Card = ({ image, onLike }: Props) => {
   return (
     <li key={image.id}>
-      <article className={styles.card}>
+      <article
+        className={styles.card}
+        role="article"
+        aria-label={`Artwork titled ${image.title} by ${image.author}`}
+      >
         <div className={styles.price}>{image.price} €</div>
 
         <Image
