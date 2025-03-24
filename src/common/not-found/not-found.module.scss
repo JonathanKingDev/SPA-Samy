@@ -1,0 +1,51 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  background-color: var(--background-body);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: -120px;
+
+  animation: fadeInScale 0.5s ease forwards;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.error {
+  font-size: 100px;
+  font-weight: 800;
+  color: var(--color);
+}
+
+.message {
+  position: absolute;
+  background-color: #ff3d3d;
+  padding: 0.25rem 0.5rem;
+  font-size: 20px;
+  font-weight: 800;
+  border-radius: 0.25rem;
+  transform: rotate(12deg);
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .error {
+    font-size: 50px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+}

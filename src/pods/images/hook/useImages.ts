@@ -1,7 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { client } from "@/core/graphql-client";
-import { GET_IMAGES, LIKE_IMAGE } from "../graphql/queries";
+import {
+  GET_FILTERED_IMAGES,
+  GET_IMAGES,
+  LIKE_IMAGE,
+} from "../graphql/queries";
 import { GetPicturesResponse, LikeImageResponse, Picture } from "../images.vm";
 
 export function useImages() {
@@ -9,15 +13,17 @@ export function useImages() {
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string | null>(null);
 
-  const fetchImages = async () => {
-    if (!hasMore) return;
+  const fetchImages = async (reset = false) => {
+    if (!hasMore && !reset) return;
 
     const data = await client.request<GetPicturesResponse>(GET_IMAGES, {
-      after: cursor,
+      after: reset ? null : cursor,
       first: 12,
     });
 
-    setImages((prev) => [...prev, ...data.images.nodes]);
+    setImages((prev) =>
+      reset ? data.images.nodes : [...prev, ...data.images.nodes]
+    );
     setHasMore(data.images.pageInfo.hasNextPage);
     setCursor(data.images.pageInfo.endCursor);
   };
@@ -35,8 +41,21 @@ export function useImages() {
     );
   };
 
+  const fetchFilteredImages = async (title: string) => {
+    const data = await client.request<GetPicturesResponse>(
+      GET_FILTERED_IMAGES,
+      {
+        title,
+      }
+    );
+
+    setImages(data.images.nodes);
+    setHasMore(false);
+    setCursor(null);
+  };
+
   useEffect(() => {
-    fetchImages();
+    fetchImages(true);
   }, []);
 
   return {
@@ -44,5 +63,6 @@ export function useImages() {
     hasMore,
     fetchImages,
     likeImage,
+    fetchFilteredImages,
   };
 }

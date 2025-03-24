@@ -1,5 +1,9 @@
 import { SearchBar } from "./search-bar.component";
 
-export const SearchBarContainer = () => {
-  return <SearchBar />;
+interface Props {
+  placeholder: string;
+}
+
+export const SearchBarContainer = ({ placeholder }: Props) => {
+  return <SearchBar placeholder={placeholder} />;
 };

@@ -41,7 +41,7 @@ export const Header = () => {
       </div>
 
       <div className={styles.searchBar}>
-        <SearchBarContainer />
+        <SearchBarContainer placeholder="You're looking for something?" />
       </div>
     </header>
   );
